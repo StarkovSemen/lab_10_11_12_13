@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Компилятор
 {
@@ -7,11 +8,9 @@ namespace Компилятор
         static void Main()
         {
             string filePath = @"example.pas";
-
             CreateTestFile(filePath);
 
-            (uint line, byte col, byte code)[]
-                errorSpots = new (uint, byte, byte)[]
+            (uint line, byte col, byte code)[] errorSpots = new (uint, byte, byte)[]
             {
                 (10, 4, 100),
                 (12, 4, 100),
@@ -25,10 +24,10 @@ namespace Компилятор
             {
                 foreach (var spot in errorSpots)
                 {
-                    if (InputOutput.PositionNow.LineNumber == spot.line &&
-                        InputOutput.PositionNow.CharNumber == spot.col)
+                    if (InputOutput.positionNow.lineNumber == spot.line &&
+                        InputOutput.positionNow.charNumber == spot.col)
                     {
-                        InputOutput.Error(spot.code, InputOutput.PositionNow);
+                        InputOutput.Error(spot.code, InputOutput.positionNow);
                         break;
                     }
                 }
@@ -57,7 +56,7 @@ namespace Компилятор
                 "writeln( i, k )",
                 "end."
             };
-            System.IO.File.WriteAllLines(path, lines);
+            File.WriteAllLines(path, lines);
         }
     }
 }
