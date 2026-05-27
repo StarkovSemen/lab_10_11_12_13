@@ -8,59 +8,92 @@ namespace Компилятор
     {
         private struct TextPosition
         {
-            public uint lineNumber;
-            public byte charNumber;
+            private uint _lineNumber;
+            private byte _charNumber;
+
+            public uint LineNumber 
+            { 
+                get => _lineNumber; 
+                set => _lineNumber = value; 
+            }
+            
+            public byte CharNumber 
+            { 
+                get => _charNumber; 
+                set => _charNumber = value; 
+            }
 
             public TextPosition(uint ln = 0, byte c = 0)
             {
-                lineNumber = ln;
-                charNumber = c;
+                _lineNumber = ln;
+                _charNumber = c;
             }
         }
 
         private struct Err
         {
-            public TextPosition errorPosition;
-            public byte errorCode;
+            private TextPosition _errorPosition;
+            private byte _errorCode;
+
+            public TextPosition ErrorPosition 
+            { 
+                get => _errorPosition; 
+                set => _errorPosition = value; 
+            }
+            
+            public byte ErrorCode 
+            { 
+                get => _errorCode; 
+                set => _errorCode = value; 
+            }
 
             public Err(TextPosition errorPosition, byte errorCode)
             {
-                this.errorPosition = errorPosition;
-                this.errorCode = errorCode;
+                _errorPosition = errorPosition;
+                _errorCode = errorCode;
             }
         }
         
         private const byte ERRMAX = 9;
-        private static char ch;
-        private static TextPosition positionNow = new TextPosition();
-        private static string line;
-        private static byte lastInLine = 0;
-        private static List<Err> err;
-        private static StreamReader file;
-        private static uint errCount = 0;
-        private static bool endOfFile;
+        private static char _ch;
+        private static TextPosition _positionNow;
+        private static string _line;
+        private static byte _lastInLine;
+        private static List<Err> _err;
+        private static StreamReader _file;
+        private static uint _errCount;
+        private static bool _endOfFile;
+        
+        static InputOutput()
+        {
+            _positionNow = new TextPosition();
+            _lastInLine = 0;
+            _err = new List<Err>();
+            _errCount = 0;
+            _endOfFile = false;
+        }
         
         public static char Ch 
         { 
-            get => ch; 
-            private set => ch = value; 
+            get => _ch; 
+            private set => _ch = value; 
         }
 
-        public static uint LineNumber => positionNow.lineNumber;
-        public static byte CharNumber => positionNow.charNumber;
+        public static uint LineNumber => _positionNow.LineNumber;
+        public static byte CharNumber => _positionNow.CharNumber;
         
         public static bool EndOfFile 
         { 
-            get => endOfFile; 
-            private set => endOfFile = value; 
+            get => _endOfFile; 
+            private set => _endOfFile = value; 
         }
 
         public static void Initialize(string filePath)
         {
-            file = new StreamReader(filePath);
+            _file = new StreamReader(filePath);
             EndOfFile = false;
-            positionNow = new TextPosition(1, 0);
-            errCount = 0;
+            _positionNow = new TextPosition(1, 0);
+            _errCount = 0;
             ReadNextLine();
         }
 
@@ -68,56 +101,55 @@ namespace Компилятор
         {
             if (EndOfFile) return;
 
-            if (positionNow.charNumber == lastInLine)
+            if (_positionNow.CharNumber == _lastInLine)
             {
-                Console.WriteLine($"{positionNow.lineNumber,4}  {line}");
-                if (err != null && err.Count > 0)
+                Console.WriteLine($"{_positionNow.LineNumber,4}  {_line}");
+                if (_err != null && _err.Count > 0)
                     ListErrors();
                 ReadNextLine();
-                positionNow.lineNumber = positionNow.lineNumber + 1;
-                positionNow.charNumber = 0;
+                _positionNow = new TextPosition(_positionNow.LineNumber + 1, 0);
                 if (EndOfFile) return;
             }
             else 
-                ++positionNow.charNumber;
+                _positionNow = new TextPosition(_positionNow.LineNumber, (byte)(_positionNow.CharNumber + 1));
             
-            ch = line[positionNow.charNumber];
+            _ch = _line[_positionNow.CharNumber];
         }
 
         private static void ReadNextLine()
         {
-            if (!file.EndOfStream)
+            if (!_file.EndOfStream)
             {
-                line = file.ReadLine();
-                lastInLine = (byte)(line.Length - 1);
-                err = new List<Err>();
+                _line = _file.ReadLine();
+                _lastInLine = (byte)(_line.Length - 1);
+                _err = new List<Err>();
             }
             else
             {
-                EndOfFile = true;
-                Console.WriteLine($"\nКомпиляция завершена: ошибок — {errCount}!");
-                file.Close();
+                _endOfFile = true;
+                Console.WriteLine($"\nКомпиляция завершена: ошибок — {_errCount}!");
+                _file.Close();
             }
         }
 
         private static void ListErrors()
         {
-            int pos = 6 - $"{positionNow.lineNumber} ".Length;
+            int pos = 6 - $"{_positionNow.LineNumber} ".Length;
             string s;
-            foreach (Err item in err)
+            foreach (Err item in _err)
             {
-                ++errCount;
+                ++_errCount;
                 s = "**";
-                if (errCount < 10) s += "0";
-                s += $"{errCount}**";
-                while (s.Length - 1 < pos + item.errorPosition.charNumber) 
+                if (_errCount < 10) s += "0";
+                s += $"{_errCount}**";
+                while (s.Length - 1 < pos + item.ErrorPosition.CharNumber) 
                     s += " ";
-                s += $"^ ошибка код {item.errorCode}";
+                s += $"^ ошибка код {item.ErrorCode}";
                 Console.WriteLine(s);
 
-                string desc = GetErrorDescription(item.errorCode);
+                string desc = GetErrorDescription(item.ErrorCode);
                 if (!string.IsNullOrEmpty(desc))
-                    Console.WriteLine(new string(' ', pos + item.errorPosition.charNumber + 1) + desc);
+                    Console.WriteLine(new string(' ', pos + item.ErrorPosition.CharNumber + 1) + desc);
             }
         }
 
@@ -134,8 +166,8 @@ namespace Компилятор
 
         public static void Error(byte errorCode)
         {
-            if (err != null && err.Count <= ERRMAX)
-                err.Add(new Err(positionNow, errorCode));
+            if (_err != null && _err.Count <= ERRMAX)
+                _err.Add(new Err(_positionNow, errorCode));
         }
     }
 }
