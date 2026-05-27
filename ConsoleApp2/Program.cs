@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+using System;
 
 namespace Компилятор
 {
@@ -24,10 +23,10 @@ namespace Компилятор
             {
                 foreach (var spot in errorSpots)
                 {
-                    if (InputOutput.positionNow.lineNumber == spot.line &&
-                        InputOutput.positionNow.charNumber == spot.col)
+                    if (InputOutput.LineNumber == spot.line &&
+                        InputOutput.CharNumber == spot.col)
                     {
-                        InputOutput.Error(spot.code, InputOutput.positionNow);
+                        InputOutput.Error(spot.code);
                         break;
                     }
                 }
@@ -56,7 +55,7 @@ namespace Компилятор
                 "writeln( i, k )",
                 "end."
             };
-            File.WriteAllLines(path, lines);
+            System.IO.File.WriteAllLines(path, lines);
         }
     }
 }
