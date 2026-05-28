@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Компилятор
 {
@@ -20,18 +20,24 @@ namespace Компилятор
             packedsy = 119, recordsy = 120, repeatsy = 121, programsy = 122,
             functionsy = 123, procedurensy = 124;
 
-        byte symbol;
-        TextPosition token;
-        string addrName;
-        int nmb_int;
-        float nmb_float;
-        char one_symbol;
+        private struct TokenPosition
+        {
+            public uint lineNumber;
+            public byte charNumber;
+        }
+
+        private byte symbol;
+        private TokenPosition token;
+        private string addrName;
+        private int nmb_int;
+        private float nmb_float;
+        private char one_symbol;
 
         public byte NextSym()
         {
             while (InputOutput.Ch == ' ') InputOutput.NextCh();
-            token.lineNumber = InputOutput.positionNow.lineNumber;
-            token.charNumber = InputOutput.positionNow.charNumber;
+            token.lineNumber = InputOutput.LineNumber;
+            token.charNumber = InputOutput.CharNumber;
 
             if ((InputOutput.Ch >= 'a' && InputOutput.Ch <= 'z') ||
                 (InputOutput.Ch >= 'A' && InputOutput.Ch <= 'Z'))
@@ -45,6 +51,7 @@ namespace Компилятор
                     InputOutput.NextCh();
                 }
                 symbol = ident;
+                addrName = name;
             }
             else if (InputOutput.Ch >= '0' && InputOutput.Ch <= '9')
             {
@@ -52,7 +59,7 @@ namespace Компилятор
                 while (InputOutput.Ch >= '0' && InputOutput.Ch <= '9')
                 {
                     if (nmb_int > 3276)
-                        InputOutput.Error(203, InputOutput.positionNow);
+                        InputOutput.Error(203);
                     nmb_int = 10 * nmb_int + (InputOutput.Ch - '0');
                     InputOutput.NextCh();
                 }
