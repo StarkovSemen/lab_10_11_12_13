@@ -99,19 +99,29 @@ namespace Компилятор
 
         public static void NextCh()
         {
-            if (EndOfFile) return;
+            if (EndOfFile) 
+            {
+                return;
+            }
 
             if (_positionNow.CharNumber == _lastInLine)
             {
                 Console.WriteLine($"{_positionNow.LineNumber,4}  {_line}");
                 if (_err != null && _err.Count > 0)
+                {
                     ListErrors();
+                }
                 ReadNextLine();
                 _positionNow = new TextPosition(_positionNow.LineNumber + 1, 0);
-                if (EndOfFile) return;
+                if (EndOfFile) 
+                {
+                    return;
+                }
             }
             else 
+            {
                 _positionNow = new TextPosition(_positionNow.LineNumber, (byte)(_positionNow.CharNumber + 1));
+            }
             
             _ch = _line[_positionNow.CharNumber];
         }
@@ -140,16 +150,23 @@ namespace Компилятор
             {
                 ++_errCount;
                 s = "**";
-                if (_errCount < 10) s += "0";
+                if (_errCount < 10) 
+                {
+                    s += "0";
+                }
                 s += $"{_errCount}**";
                 while (s.Length - 1 < pos + item.ErrorPosition.CharNumber) 
+                {
                     s += " ";
+                }
                 s += $"^ ошибка код {item.ErrorCode}";
                 Console.WriteLine(s);
 
                 string desc = GetErrorDescription(item.ErrorCode);
                 if (!string.IsNullOrEmpty(desc))
+                {
                     Console.WriteLine(new string(' ', pos + item.ErrorPosition.CharNumber + 1) + desc);
+                }
             }
         }
 
@@ -157,17 +174,23 @@ namespace Компилятор
         {
             switch (code)
             {
-                case 100: return "использование имени не соответствует описанию";
-                case 147: return "тип метки не совпадает с типом выбирающего выражения";
-                case 203: return "целая константа превышает допустимый диапазон";
-                default: return null;
+                case 100: 
+                    return "использование имени не соответствует описанию";
+                case 147: 
+                    return "тип метки не совпадает с типом выбирающего выражения";
+                case 203: 
+                    return "целая константа превышает допустимый диапазон";
+                default: 
+                    return null;
             }
         }
 
         public static void Error(byte errorCode)
         {
             if (_err != null && _err.Count <= ERRMAX)
+            {
                 _err.Add(new Err(_positionNow, errorCode));
+            }
         }
     }
 }
