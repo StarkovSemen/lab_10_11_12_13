@@ -103,7 +103,6 @@ namespace Компилятор
             {
                 return;
             }
-
             if (_positionNow.CharNumber == _lastInLine)
             {
                 Console.WriteLine($"{_positionNow.LineNumber,4}  {_line}");
