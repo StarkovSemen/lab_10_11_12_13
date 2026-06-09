@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\semas\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\lab_11\\ConsoleApp1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{67FD3819-DE74-467D-941B-7A2D80186989}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\semas\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\lab_11\\consoleapp1\\consoleapp1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67FD3819-DE74-467D-941B-7A2D80186989}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67FD3819-DE74-467D-941B-7A2D80186989}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\semas\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\lab_11\\consoleapp1\\consoleapp1\\analyzer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67FD3819-DE74-467D-941B-7A2D80186989}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\analyzer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67FD3819-DE74-467D-941B-7A2D80186989}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\semas\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\lab_11\\consoleapp1\\consoleapp1\\input.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67FD3819-DE74-467D-941B-7A2D80186989}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\input.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67FD3819-DE74-467D-941B-7A2D80186989}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\semas\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\lab_11\\consoleapp1\\consoleapp1\\inputtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67FD3819-DE74-467D-941B-7A2D80186989}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\inputtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{67FD3819-DE74-467D-941B-7A2D80186989}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\semas\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\lab_11\\consoleapp1\\consoleapp1\\keywords.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{67FD3819-DE74-467D-941B-7A2D80186989}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\keywords.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\semas\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\lab_11\\ConsoleApp1\\ConsoleApp1\\Program.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Program.cs",
+              "ToolTip": "C:\\Users\\semas\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\lab_11\\ConsoleApp1\\ConsoleApp1\\Program.cs",
+              "RelativeToolTip": "ConsoleApp1\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-09T18:31:34.256Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "analyzer.cs",
+              "DocumentMoniker": "C:\\Users\\semas\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\lab_11\\ConsoleApp1\\ConsoleApp1\\analyzer.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\analyzer.cs",
+              "ToolTip": "C:\\Users\\semas\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\lab_11\\ConsoleApp1\\ConsoleApp1\\analyzer.cs",
+              "RelativeToolTip": "ConsoleApp1\\analyzer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-09T18:32:22.946Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "keywords.cs",
+              "DocumentMoniker": "C:\\Users\\semas\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\lab_11\\ConsoleApp1\\ConsoleApp1\\keywords.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\keywords.cs",
+              "ToolTip": "C:\\Users\\semas\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\lab_11\\ConsoleApp1\\ConsoleApp1\\keywords.cs",
+              "RelativeToolTip": "ConsoleApp1\\keywords.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-09T18:32:13.408Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "inputtest.cs",
+              "DocumentMoniker": "C:\\Users\\semas\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\lab_11\\ConsoleApp1\\ConsoleApp1\\inputtest.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\inputtest.cs",
+              "ToolTip": "C:\\Users\\semas\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\lab_11\\ConsoleApp1\\ConsoleApp1\\inputtest.cs",
+              "RelativeToolTip": "ConsoleApp1\\inputtest.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAwwCUAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-09T18:32:03.989Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "input.cs",
+              "DocumentMoniker": "C:\\Users\\semas\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\lab_11\\ConsoleApp1\\ConsoleApp1\\input.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\input.cs",
+              "ToolTip": "C:\\Users\\semas\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\lab_11\\ConsoleApp1\\ConsoleApp1\\input.cs",
+              "RelativeToolTip": "ConsoleApp1\\input.cs",
+              "ViewState": "AgIAAHoAAAAAAAAAAAAAAOIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-09T18:31:55.816Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
