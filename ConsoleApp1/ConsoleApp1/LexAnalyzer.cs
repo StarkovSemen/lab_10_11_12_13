@@ -1,8 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Компилятор
 {
+    public struct TokenInfo
+    {
+        public byte Type;
+        public string Lexeme;
+        public TextPosition Position;
+        public int IntValue;
+        public float FloatValue;
+    }
+
     class LexicalAnalyzer
     {
         public const byte
@@ -29,17 +38,19 @@ namespace Компилятор
         private float _nmbFloat;
         private char _oneSymbol;
         private string _stringValue;
-        private readonly Keywords _keywords;
+        private readonly KeyWords _keywords;
         private readonly List<byte> _outputCodes;
         private readonly Dictionary<uint, List<byte>> _codesByLine;
+        private readonly List<TokenInfo> _tokens;
 
         public LexicalAnalyzer()
         {
             _addrName = "";
             _stringValue = "";
-            _keywords = new Keywords();
+            _keywords = new KeyWords();
             _outputCodes = new List<byte>();
             _codesByLine = new Dictionary<uint, List<byte>>();
+            _tokens = new List<TokenInfo>();
         }
 
         public byte Symbol => _symbol;
@@ -51,13 +62,16 @@ namespace Компилятор
         public string StringValue => _stringValue;
         public List<byte> OutputCodes => _outputCodes;
         public Dictionary<uint, List<byte>> CodesByLine => _codesByLine;
+        public List<TokenInfo> Tokens => _tokens;
 
         private byte FindKeyword(string name)
         {
             string lower = name.ToLower();
             if (_keywords.Kw.TryGetValue((byte)lower.Length, out var byLen) &&
                 byLen.TryGetValue(lower, out byte code))
+            {
                 return code;
+            }
             return 0;
         }
 
@@ -71,7 +85,9 @@ namespace Компилятор
             _outputCodes.Add(code);
             uint lineNum = _token.LineNumber;
             if (!_codesByLine.ContainsKey(lineNum))
+            {
                 _codesByLine[lineNum] = new List<byte>();
+            }       
             _codesByLine[lineNum].Add(code);
         }
 
@@ -104,18 +120,27 @@ namespace Компилятор
         {
             InputOutput.NextCh();
             while (InputOutput.Ch != '}' && InputOutput.Ch != '\0')
+            {
                 InputOutput.NextCh();
+            }               
             if (InputOutput.Ch == '\0')
+            {
                 InputOutput.Error(250, InputOutput.PositionNow);
+            }   
             else
+            {
                 InputOutput.NextCh();
+            }
         }
 
         public byte NextSym()
         {
             while (InputOutput.Ch == ' ' || InputOutput.Ch == '\t' ||
                    InputOutput.Ch == '\n' || InputOutput.Ch == '\r')
+            {
                 InputOutput.NextCh();
+            }
+                
 
             _token = InputOutput.PositionNow;
             char currentCh = InputOutput.Ch;
@@ -123,6 +148,7 @@ namespace Компилятор
             if (currentCh == '\0')
             {
                 _symbol = 0;
+                _tokens.Add(new TokenInfo { Type = 0, Lexeme = "EOF", Position = _token });
                 return 0;
             }
 
@@ -139,19 +165,20 @@ namespace Компилятор
                 _symbol = keywordCode > 0 ? keywordCode : ident;
                 _addrName = name;
                 AddCode(_symbol);
+                _tokens.Add(new TokenInfo { Type = _symbol, Lexeme = name, Position = _token });
                 return _symbol;
             }
 
             if (IsDigit(currentCh))
             {
                 _nmbInt = 0;
-                int maxint = short.MaxValue;
+                int maxint = 32767;
 
                 while (IsDigit(InputOutput.Ch))
                 {
                     byte digit = (byte)(InputOutput.Ch - '0');
 
-                    if (_nmbInt < maxint / 10 || (_nmbInt == maxint / 10 && digit <= maxint % 10))
+                    if (_nmbInt <= maxint / 10)
                     {
                         _nmbInt = 10 * _nmbInt + digit;
                     }
@@ -165,6 +192,11 @@ namespace Компилятор
                     }
 
                     InputOutput.NextCh();
+                }
+
+                if (_nmbInt < -32768 || _nmbInt > 32767)
+                {
+                    InputOutput.Error(200, _token);
                 }
 
                 if (InputOutput.Ch == '.')
@@ -196,6 +228,14 @@ namespace Компилятор
                 }
 
                 AddCode(_symbol);
+                _tokens.Add(new TokenInfo
+                {
+                    Type = _symbol,
+                    Lexeme = _symbol == intc ? _nmbInt.ToString() : _nmbFloat.ToString(),
+                    Position = _token,
+                    IntValue = _nmbInt,
+                    FloatValue = _nmbFloat
+                });
                 return _symbol;
             }
 
@@ -220,7 +260,10 @@ namespace Компилятор
 
                 case '(':
                     InputOutput.NextCh();
-                    if (InputOutput.Ch == '*') { SkipComment(); return NextSym(); }
+                    if (InputOutput.Ch == '*') 
+                    { 
+                        SkipComment(); return NextSym(); 
+                    }
                     _symbol = leftpar;
                     break;
 
@@ -230,27 +273,54 @@ namespace Компилятор
 
                 case '<':
                     InputOutput.NextCh();
-                    if (InputOutput.Ch == '=') { _symbol = laterequal; InputOutput.NextCh(); }
-                    else if (InputOutput.Ch == '>') { _symbol = latergreater; InputOutput.NextCh(); }
-                    else { _symbol = later; }
+                    if (InputOutput.Ch == '=') 
+                    { 
+                        _symbol = laterequal; InputOutput.NextCh(); 
+                    }
+                    else if (InputOutput.Ch == '>') 
+                    { 
+                        _symbol = latergreater; InputOutput.NextCh();
+                    }
+                    else 
+                    { 
+                        _symbol = later; 
+                    }
                     break;
 
                 case '>':
                     InputOutput.NextCh();
-                    if (InputOutput.Ch == '=') { _symbol = greaterequal; InputOutput.NextCh(); }
-                    else { _symbol = greater; }
+                    if (InputOutput.Ch == '=') 
+                    { 
+                        _symbol = greaterequal; InputOutput.NextCh(); 
+                    }
+                    else 
+                    { 
+                        _symbol = greater; 
+                    }
                     break;
 
                 case ':':
                     InputOutput.NextCh();
-                    if (InputOutput.Ch == '=') { _symbol = assign; InputOutput.NextCh(); }
-                    else { _symbol = colon; }
+                    if (InputOutput.Ch == '=') 
+                    {
+                        _symbol = assign; InputOutput.NextCh();
+                    }
+                    else 
+                    { 
+                        _symbol = colon; 
+                    }
                     break;
 
                 case '.':
                     InputOutput.NextCh();
-                    if (InputOutput.Ch == '.') { _symbol = twopoints; InputOutput.NextCh(); }
-                    else { _symbol = point; }
+                    if (InputOutput.Ch == '.') 
+                    { 
+                        _symbol = twopoints; InputOutput.NextCh(); 
+                    }
+                    else 
+                    { 
+                        _symbol = point; 
+                    }
                     break;
 
                 case '\'':
@@ -293,13 +363,18 @@ namespace Компилятор
             }
 
             AddCode(_symbol);
+            _tokens.Add(new TokenInfo { Type = _symbol, Lexeme = currentCh.ToString(), Position = _token });
             return _symbol;
         }
 
         public void PrintOutputCodesByLine()
         {
+            Console.WriteLine("\n");
             foreach (var kvp in _codesByLine)
                 Console.WriteLine("Строка " + kvp.Key + ": " + string.Join(" ", kvp.Value));
+
+            string codesFile = "codes.txt";
+            System.IO.File.WriteAllText(codesFile, string.Join(" ", _outputCodes));
         }
     }
 }
