@@ -107,7 +107,10 @@ namespace Компилятор
                 if (InputOutput.Ch == '*')
                 {
                     InputOutput.NextCh();
-                    if (InputOutput.Ch == ')') { InputOutput.NextCh(); return; }
+                    if (InputOutput.Ch == ')') 
+                    { 
+                        InputOutput.NextCh(); return; 
+                    }
                 }
                 else
                 {
@@ -187,7 +190,9 @@ namespace Компилятор
                         InputOutput.Error(203, InputOutput.PositionNow);
                         _nmbInt = 0;
                         while (IsDigit(InputOutput.Ch))
+                        {     
                             InputOutput.NextCh();
+                        }
                         break;
                     }
 
